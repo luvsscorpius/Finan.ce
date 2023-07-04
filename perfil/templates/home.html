@@ -1,4 +1,10 @@
 {% extends 'bases/base.html' %}
+{% load static %}
+{% block 'head' %}
+
+<link rel="stylesheet" href="{% static 'perfil/css/home.css' %}">
+
+{% endblock %}
 
 {% block 'body' %}
 <div class="container">
@@ -13,7 +19,7 @@
                             <span class="fonte-destaque">RS 1.000,00</span>
                         </div>
                         <div class="col-md">
-                            <img class="icone-setas" src="#">
+                            <img class="icone-setas" src="{% static 'perfil/img/entradas.png' %}">
                         </div>
                     </div>
                 </div>
@@ -27,7 +33,7 @@
                             <span class="fonte-destaque">RS 1.000,00</span>
                         </div>
                         <div class="col-md">
-                            <img class="icone-setas" src="#">
+                            <img class="icone-setas" src="{% static 'perfil/img/exit.png' %}">
                         </div>
                     </div>
                 </div>
@@ -67,6 +73,13 @@
                     <div class="col-md">
                         <div class="saldo">
                             <span class="fonte-destaque">Saldo mensal</span>
+                            <br>
+                            <span class="font-light">R$ 0.000,00</span>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="despesa">
+                            <span class="fonte-destaque">Despesa mensal</span>
                             <br>
                             <span class="font-light">R$ 0.000,00</span>
                         </div>
