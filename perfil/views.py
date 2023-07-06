@@ -16,7 +16,9 @@ def gerenciar(request):
     contas = Conta.objects.all()
     categorias = Categoria.objects.all()
     total_conta = calcula_total(contas, 'valor')
-    return render(request, 'gerenciar.html', {'contas': contas, 'total_conta': total_conta, 'categorias': categorias})
+    bancos = Conta.banco_choices
+    print(bancos)
+    return render(request, 'gerenciar.html', {'contas': contas, 'total_conta': total_conta, 'categorias': categorias, 'bancos': bancos})
 
 def cadastrar_banco(request):
     apelido = request.POST.get('apelido')
