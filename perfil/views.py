@@ -48,8 +48,8 @@ def deletar_banco(request, id):
     conta = Conta.objects.get(id = id)
     conta.delete()
     messages.add_message(request, constants.SUCCESS, 'Conta deletada com sucesso!')
-    return redirect('/perfil/gerenciar/')
     conta.save()
+    return redirect('/perfil/gerenciar/')
     
 
 def cadastrar_categoria(request):
