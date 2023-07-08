@@ -77,23 +77,23 @@
                         <div class="saldo">
                             <span class="fonte-destaque">Saldo mensal</span>
                             <br>
-                            <span class="font-light">R$ 0.000,00</span>
+                            <span class="font-light">R$ {{total_entrada_mes}}</span>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="despesa">
                             <span class="fonte-destaque">Despesa mensal</span>
                             <br>
-                            <span class="font-light">R$ 0.000,00</span>
+                            <span class="font-light">R$ {{total_saida_mes}}</span>
                         </div>
                     </div>
                 </div>
 
                 <hr class="hr-borda">
                 <span class="fonte-destaque">Total livre</span>
-                <span class="font-light negativo">R$ 0.000,00</span>
+                <span class="font-light negativo">R$ {{total_conta}}</span>
                 <hr class="hr-borda">
-                <a href="#" class="botao-principal">Gerenciar dados mensais</a>
+                <a href="{% url 'dashboard' %}" class="botao-principal">Gerenciar dados mensais</a>
             </div>
         </div>
     </div>
@@ -148,13 +148,15 @@
                 <hr class="hr-borda">
 
                 <span class="fonte-destaque">Próximas do vencimento</span>
-                <span class="font-light">3 contas próximas do vencimento</span>
+                <span class="font-light">{{proximas}} contas próximas do vencimento</span>
                 <br>
                 <span class="fonte-destaque negativo">Vencidas</span>
-                <span class="font-light">0 contas vencidas</span>
+                <span class="font-light">{{vencidas}} contas vencidas</span>
 
                 <hr class="hr-borda">
 
+                <a href="{% url 'definir_contas' %}" class="botao-principal">Definir contas</a>
+                <br>
                 <a href="{% url 'ver_contas' %}" class="botao-principal">Ver mais</a>
             </div>
         </div>

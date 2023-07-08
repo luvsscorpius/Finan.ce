@@ -22,5 +22,10 @@ def calcula_equilibrio_financeiro():
         return percentual_gastos_essenciais, percentual_gastos_nao_essenciais
     except:
         return 0, 0
-    print(total_gastos_essenciais)
-    print(total_gastos_nao_essenciais)
+
+def calculo_mensal():
+    entrada_mes = Valores.objects.filter(data__month=datetime.now().month).filter(tipo='E')
+    saida_mes = Valores.objects.filter(data__month=datetime.now().month).filter(tipo='S')
+    total_entrada_mes = calcula_total(entrada_mes, 'valor')
+    total_saida_mes = calcula_total(saida_mes, 'valor')
+    return total_entrada_mes, total_saida_mes

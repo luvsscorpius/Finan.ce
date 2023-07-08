@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .utils import calcula_total
+from extrato.models import Valores
 
 def definir_planejamento(request):
     categorias = Categoria.objects.all()
@@ -19,4 +20,8 @@ def update_valor_categoria(request, id):
 
 def ver_planejamento(request):
     categorias = Categoria.objects.all()
-    return render(request, 'ver_planejamento.html', {'categorias': categorias})
+    valores = Valores.objects.all().filter(tipo='S')
+    total = calcula_total(valores, 'valor')
+    total_percentual = int(total / 100)
+    print(total_percentual)
+    return render(request, 'ver_planejamento.html', {'categorias': categorias, 'total_percentual': total_percentual})

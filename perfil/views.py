@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from .models import Conta, Categoria
 from django.contrib import messages
 from django.contrib.messages import constants
-from .utils import calcula_total, calcula_equilibrio_financeiro
+from .utils import calcula_total, calcula_equilibrio_financeiro, calculo_mensal
 from extrato.models import Valores
 from datetime import datetime
+from contas.models import ContaPaga, ContaPagar
 
 def home(request):
     valores = Valores.objects.filter(data__month=datetime.now().month)
@@ -18,15 +19,40 @@ def home(request):
     contas = Conta.objects.all()
     total_conta = calcula_total(contas, 'valor')
 
+    total_entrada_mes, total_saida_mes = calculo_mensal()
+    print(total_saida_mes)
+
     percentual_gastos_essenciais, percentual_gastos_nao_essenciais = calcula_equilibrio_financeiro()
     print(percentual_gastos_essenciais)
     print(percentual_gastos_nao_essenciais)
+
+    MES_ATUAL = datetime.now().month
+    DIA_ATUAL = datetime.now().day
+
+    contass = ContaPagar.objects.all()
+
+    contas_pagas = ContaPaga.objects.filter(data_pagamento__month=MES_ATUAL).values('conta')
+
+    contas_vencidas = contass.filter(dia_pagamento__lt=DIA_ATUAL).exclude(id__in=contas_pagas)
+
+    contas_proximas_vencimento = contass.filter(dia_pagamento__lte=DIA_ATUAL + 5).filter(dia_pagamento__gt=DIA_ATUAL).exclude(id__in=contas_pagas)
+
+    vencidas = len(contas_vencidas)
+    print(vencidas)
+
+    proximas = len(contas_proximas_vencimento)
+    print(proximas)
+
     return render(request, 'home.html', {'contas': contas,
                                           'total_conta': total_conta,
                                           'total_entradas': total_entradas,
                                           'total_saidas': total_saidas,
                                           'percentual_gastos_essenciais': int(percentual_gastos_essenciais),
-                                          'percentual_gastos_nao_essenciais': int(percentual_gastos_nao_essenciais),})
+                                          'percentual_gastos_nao_essenciais': int(percentual_gastos_nao_essenciais),
+                                          'total_entrada_mes': total_entrada_mes,
+                                          'total_saida_mes': total_saida_mes,
+                                          'proximas': proximas,
+                                          'vencidas': vencidas,})
 
 
 def gerenciar(request):
