@@ -26,7 +26,7 @@
             <tr class="linha">
                 <td>{{categoria}}</td>
                 <td><input type="text" id="valor-categoria-{{categoria.id}}" class="form-control"
-                        value="{{categoria.valor}}"></td>
+                        value="R$ {{categoria.valor_planejamento}}"></td>
                 <td><button onclick="update_valor_plajamento_categoria({{categoria.id}})" class="botao-secundario"
                         style="width: 100%;">Salvar</button></td>
             </tr>
@@ -48,7 +48,7 @@
             body: JSON.stringify({ novo_valor: valor })
         }).then(function (result) {
             return result.json()
-        }).them(function (data) {
+        }).then(function (data) {
             console.log(data)
         })
     }
